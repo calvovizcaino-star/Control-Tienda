@@ -40,7 +40,7 @@ document.getElementById('saveStore').addEventListener('click',()=>{
  if(!date||raw===''||!Number.isFinite(amount)||amount<0){toast('Comprueba la fecha y el importe introducido.');return;}
  const {year,month}=storeDateParts(date),previous=data[year]?.[month];
  const difference=previous==null?null:amount-previous;
- const message='CONFIRMAR VENTAS DE TIENDA\\n\\nMes: '+M[month]+' '+year+'\\nNuevo importe: '+eur(amount,2)+'\\n'+(difference==null?'Importe anterior: Sin datos\\n':'Importe anterior: '+eur(previous,2)+'\\nDiferencia: '+(difference>0?'+':'')+eur(difference,2)+'\\n')+'\\nSe sustituirá el importe anterior por el nuevo.\\n\\n¿Quieres continuar?';
+ const message='CONFIRMAR VENTAS DE TIENDA\n\nMes: '+M[month]+' '+year+'\nNuevo importe: '+eur(amount,2)+'\n'+(difference==null?'Importe anterior: Sin datos\n':'Importe anterior: '+eur(previous,2)+'\nDiferencia: '+(difference>0?'+':'')+eur(difference,2)+'\n')+'\nSe sustituirá el importe anterior por el nuevo.\n\n¿Quieres continuar?';
  if(!confirm(message))return;
  if(!data[year])data[year]=Array(12).fill(null);
  data[year][month]=Math.round((amount+Number.EPSILON)*100)/100;
