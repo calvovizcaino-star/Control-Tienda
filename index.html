@@ -22,7 +22,7 @@ const PENDING_KEY='k124_tienda_pending_v1';
 const BASE_KEY='k124_tienda_cloud_base_v1';
 let data=read(), cloudBase=null, cloudBusy=false, syncTimer=null;
 function syncLabel(message){const el=document.getElementById('syncStatus');if(el)el.textContent=message;}
-function validData(x){return !!x&&typeof x==='object'&&Object.keys(x).some(y=>/^20\\d{2}$/.test(y))&&Object.keys(x).every(y=>/^20\\d{2}$/.test(y)&&Array.isArray(x[y])&&x[y].length===12&&x[y].every(v=>v===null||(typeof v==='number'&&Number.isFinite(v))));}
+function validData(x){return !!x&&typeof x==='object'&&Object.keys(x).some(y=>/^20\d{2}$/.test(y))&&Object.keys(x).every(y=>/^20\d{2}$/.test(y)&&Array.isArray(x[y])&&x[y].length===12&&x[y].every(v=>v===null||(typeof v==='number'&&Number.isFinite(v))));}
 function same(a,b){return JSON.stringify(a)===JSON.stringify(b);}
 function mergeData(base,local,cloud){
  const out=JSON.parse(JSON.stringify(cloud||{}));
