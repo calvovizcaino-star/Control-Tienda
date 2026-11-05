@@ -41,7 +41,7 @@ async function cloudRead(){
 }
 async function cloudCreate(snapshot){
  const r=await fetch(CLOUD_BASE+'/k124_datos',{method:'POST',headers:cloudHeaders({'Content-Type':'application/json',Prefer:'return=representation'}),body:JSON.stringify({id:CLOUD_ID,datos:snapshot,updated_at:new Date().toISOString()})});
- if(!r.ok)throw new Error('No se pudo inicializar la nube (HTTP '+r.status+').');
+ if(!r.ok){const detail=await r.text();throw new Error('No se pudo inicializar la nube (HTTP '+r.status+'): '+detail.slice(0,220));}
  const rows=await r.json();return rows[0]||{datos:snapshot};
 }
 async function cloudWrite(snapshot){
