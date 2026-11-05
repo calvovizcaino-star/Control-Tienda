@@ -87,7 +87,7 @@ async function syncNow(){
   }
   syncLabel('Sincronizado · nube activa');
  }catch(e){
-  syncLabel(navigator.onLine?'Error de sincronización · se reintentará':'Sin conexión · cambios guardados');
+  syncLabel(navigator.onLine?'Error: '+(e.message||'sin detalle'):'Sin conexión · cambios guardados');
   console.error('K124 Control Tienda · sincronización:',e);
  }finally{cloudBusy=false;}
 }
