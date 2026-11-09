@@ -100,6 +100,13 @@ header.top:after{
  max-width:none!important;
 }
 
+
+/* Estado de sincronización debajo de la cabecera principal */
+.sync-status-row{display:flex;justify-content:flex-end;align-items:center;width:100%;margin:9px 0 10px;padding:0 2px;min-height:30px}
+.sync-status-row .status{position:static;display:inline-block;align-self:auto;font-size:10px;color:#52647a;border:1px solid #cbd8e7;background:#f8fbff;border-radius:30px;padding:6px 11px;white-space:nowrap}
+.sync-status-row .status:before{content:'●';color:#20a879;margin-right:7px}
+@media(max-width:520px){.sync-status-row{margin-top:7px;margin-bottom:8px}.sync-status-row .status{font-size:10px;padding:5px 9px}}
+
 </style></head><body><main class="wrap">
 <header class="top k124-header">
  <div class="header-topline">
@@ -108,7 +115,6 @@ header.top:after{
    <div class="header-logo">K124<small>SL</small></div>
    <div class="header-tag">CONTROL DE TIENDA</div>
   </div>
-  <div class="status" id="syncStatus">Conectando con la nube…</div>
  </div>
  <div class="heading">
   <div class="eyebrow">K124 SL / PANEL DE CONTROL</div>
@@ -116,6 +122,7 @@ header.top:after{
   <p>Histórico, comparativas y evolución mensual</p>
  </div>
 </header>
+<div class="sync-status-row"><div class="status" id="syncStatus">Conectando con la nube…</div></div>
 <nav class="tabs"><button class="tab active" data-tab="resumen">Resumen</button><button class="tab" data-tab="evolucion">Evolución anual</button><button class="tab" data-tab="mensual">Comparativa mensual</button><button class="tab" data-tab="copias">Copias de seguridad</button></nav>
 <section id="resumen" class="view"><div class="grid" id="metrics"></div><div class="section"><button class="btn" id="toggleStoreForm" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 17px;font-size:14px"><span>＋ Añadir ventas del mes</span><span id="storeChevron">⌄</span></button><div id="storeFormWrap" class="hidden" style="margin-top:10px"><div class="card"><div class="head"><h3>Introducir ventas del mes</h3><span>Actualización manual</span></div><p class="muted">Selecciona una fecha del mes e introduce el importe total de ventas de tienda. La nueva cifra sustituirá a la anterior, sin duplicar cantidades.</p><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px"><label class="label">Fecha<input id="storeDate" type="date" style="display:block;width:100%;margin-top:8px;padding:12px;border-radius:10px;border:1px solid var(--line);background:#101b2c;color:white;font:600 15px system-ui"></label><label class="label">Ventas totales del mes (€)<input id="storeAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ej. 12543,60" style="display:block;width:100%;max-width:100%;margin-top:8px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:#101b2c;color:white;font:600 16px system-ui;height:46px"></label></div><div id="storeCurrent" class="note">Importe guardado actualmente: —</div><div class="note">Al guardar, se reemplazará el importe de ese mes. Se actualizarán automáticamente los totales, comparativas y gráficos.</div><div class="actions" style="margin-top:13px"><button class="btn" id="saveStore">Guardar ventas del mes</button></div></div></div></div><div class="card section"><div class="head"><h3>Ventas de tienda · este año</h3><span id="currentYearCaption"></span></div><div class="chart-tip" id="currentYearTip"></div><svg id="currentYearChart" class="chart" viewBox="0 0 900 260" preserveAspectRatio="none"></svg><div class="legend"><i class="dot" style="background:#ff913e"></i>Ventas mensuales del año en curso</div></div><div class="card section"><div class="head"><h3>Evolución de ventas</h3><span>Totales anuales</span></div><div class="chart-tip" id="annualTip"></div><svg id="annual" class="chart" viewBox="0 0 900 260" preserveAspectRatio="none"></svg><div class="legend"><i class="dot" style="background:#ff913e"></i>Ventas anuales</div></div><div class="card section"><div class="head"><h3>Últimos meses registrados</h3><span id="latest"></span></div><div id="recent" class="months"></div></div></section>
 <section id="evolucion" class="view hidden"><div class="card section"><div class="head"><h3>Comparar años</h3><span>Ventas totales por ejercicio</span></div><div class="chart-tip" id="annual2Tip"></div><svg id="annual2" class="chart" viewBox="0 0 900 260" preserveAspectRatio="none"></svg></div><div class="card section"><div class="head"><h3>Histórico anual</h3><span>Importes según meses registrados</span></div><div class="tablebox"><table id="yearTable"></table></div></div></section>
