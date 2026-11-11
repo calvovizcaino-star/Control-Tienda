@@ -269,7 +269,8 @@ function renderMonths(y){
  const c=comparison(y),a=c.a,b=c.b,fmt=n=>eur(n,2),p=c.totalP;
  document.getElementById('monthKpis').innerHTML=card('Ventas registradas · '+y,fmt(sum(a)),count(a)+' meses con datos')+card('Variación acumulada comparable',p==null?'—':(p>=0?'+':'')+p.toFixed(1)+' %',fmt(c.totalA-c.totalB)+' frente a '+(y-1),p==null?'':p>=0?'up':'down');
  document.getElementById('monthCaption').textContent=y+' frente a '+(y-1)+(c.isCurrent?' · acumulado hasta hoy':' · año completo');
- drawMonths(a,b);
+ const chartB=b.slice();if(c.isCurrent&&b[c.lastMonth]!=null){const days=new Date(y-1,c.lastMonth+1,0).getDate();chartB[c.lastMonth]=(b[c.lastMonth]/days)*new Date().getDate();}
+ drawMonths(a,chartB);
  const byMonth=new Map(c.rows.map(r=>[r.i,r]));
  document.getElementById('monthTable').innerHTML='<tr><th>Mes</th><th>'+y+'</th><th>'+(y-1)+' comparable</th><th>Diferencia</th><th>Variación</th></tr>'+M.map((m,i)=>{
   const r=byMonth.get(i);if(!r)return '<tr><td>'+m+'</td><td>'+(a[i]==null?'—':fmt(a[i]))+'</td><td>'+(b[i]==null?'—':fmt(b[i]))+'</td><td>—</td><td>—</td></tr>';
