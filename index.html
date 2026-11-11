@@ -301,7 +301,7 @@ function drawMonths(a,b,yearA,yearB){let svg=document.getElementById('monthChart
 function comparison(y,against){
  const a=data[y]||Array(12).fill(null),b=data[against]||Array(12).fill(null),now=new Date(),isCurrent=y===now.getFullYear(),lastMonth=isCurrent?now.getMonth():11;
  const rows=[];let totalA=0,totalB=0;
- for(let i=0;i<=lastMonth;i++){const av=a[i],bv=b[i];if(av==null||bv==null)continue;let base=bv,estimated=false;if(isCurrent&&i===now.getMonth()){const days=new Date(against,i+1,0).getDate(),stamp=data._updatedDates?.[y+'-'+String(i+1).padStart(2,'0')],savedDay=stamp&&/^\d{4}-\d{2}-\d{2}$/.test(stamp)?Number(stamp.slice(8,10)):now.getDate(),elapsed=Math.max(1,Math.min(days,savedDay));base=(bv/days)*elapsed;estimated=true;}rows.push({i,a:av,b:base,d:av-base,p:pct(av,base),estimated});totalA+=av;totalB+=base;}
+ for(let i=0;i<=lastMonth;i++){const av=a[i],bv=b[i];if(av==null||bv==null)continue;let base=bv,estimated=false;if(isCurrent&&i===now.getMonth()){const daysInMonth=new Date(against,i+1,0).getDate(),stamp=data._updatedDates?.[y+'-'+String(i+1).padStart(2,'0')],savedDay=stamp&&/^\d{4}-\d{2}-\d{2}$/.test(stamp)?Number(stamp.slice(8,10)):now.getDate(),openDays=d=>{let n=d;if(i===11){if(d>=25)n-=1;if(d>=24)n-=.5;if(d>=31)n-=.5;}if(i===0&&d>=1)n-=1;return n;},days=openDays(daysInMonth),elapsed=Math.max(1,Math.min(days,openDays(savedDay)));base=(bv/days)*elapsed;estimated=true;}rows.push({i,a:av,b:base,d:av-base,p:pct(av,base),estimated});totalA+=av;totalB+=base;}
  return {a,b,rows,totalA,totalB,totalP:pct(totalA,totalB),isCurrent,lastMonth};
 }
 function renderVariations(y,against){
